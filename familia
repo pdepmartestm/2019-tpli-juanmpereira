@@ -1,0 +1,32 @@
+padre(fernando,juan).
+padre(homero,bart).
+padre(homero,lisa).
+padre(abraham,homero).
+padre(abraham,herbert).
+madre(mona,homero).
+madre(marge,lisa).
+madre(marge,bart).
+pareja(homero,marge).
+pareja(lisa,milhouse).
+
+
+hijo(Hijo,Padre):- padre(Padre,Hijo).
+
+hermano(X,Y):- padre(Padre,X),padre(Padre,Y),not(X=Y).
+% O \=.
+
+abuelo(Abu,H):- padre(Padre,H),padre(Abu,Padre).
+%nieto(H,Abu):- abuelo(Abu,H).
+
+tio(T,H):- padre(Padre,H),hermano(Padre,T).
+
+descendiente(X,Y):-
+ padre(Y,X).
+descendiente(X,Y):-
+ padre(P,X),
+ descendiente(P,Y).
+ 
+primo(X,Y):- padre(P1,X),padre(P2,Y),hermano(P1,P2).
+
+suegro(P,X):-pareja(X,C),padre(P,C).
+
